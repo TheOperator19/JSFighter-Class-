@@ -93,6 +93,42 @@ function showControls() {
   }
 }
 
+function hideControls() {
+var menu = document.getElementById('controlsBox');
+   if (target.hp <= 0) {
+     menu.style.display = false;
+   }
+   else {
+     menu.style.display = true;
+   }
+}
+/* ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ */
+/* This function is how the game records each players health */
+function koCheck(target, amount) {
+  target.hp = target.hp - amount;
+  console.log(target.hp)
+  if (target.hp <= 0) {
+    return true;
+  }
+  else {
+    return false;
+  }
+}
+
+/*
+function amount() {
+  if (single(target)) {
+    amount = 5;
+  }
+  else if (double(target)) {
+    amount = 10;
+  }
+  else {
+    amount = -5;
+  }
+}
+/* */
+/* ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ */
 /*
 
 MHW = 'delicious'
