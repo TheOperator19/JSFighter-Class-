@@ -47,21 +47,39 @@ class Fighter {
 
   //this logs who attacked who
   attack(target) {
+    let damage = this.atk
     console.log(this.name + ' attacked ' + target.name);
+    /* if koCheck(target, damage) {
+      hideControls()
+    }
+    /* if koCheck(target, 5) {
+      endGame
+    } */
   }
 
   single(target) {
     this.attack(target);
+    /* endTurn()
+    updateBars()
+    /* if koCheck(target, 5) {
+      endGame
+    } */
   }
 
   double(target) {
     this.attack(target);
     this.attack(target);
+    /* if koCheck(target, 10) {
+      endGame
+    } */
   }
 
   //this logs that they recovered
   recover() {
     console.log('Recovered!');
+    /*koCheck(target, -5) {
+      endGame
+    } */
   }
 }
 
@@ -109,7 +127,6 @@ function koCheck(target, amount) {
     return false;
   }
 }
-
 
 function updateBars() {
   //calculates the percent of HP
@@ -159,6 +176,15 @@ function updateBars() {
   barsBox.innerHTML += 'P1<div class="hpBar"><div style="height:' + player1PercentHP + '%; width: 100%;" id="p1HPfill" class="HPfill"></div></div>'
   barsBox.innerHTML += '<div class="spBar"><div style="height:' + player1PercentSP + '%; width: 100%;" id="p1SPfill" class="SPfill"></div></div>'
 }
+
+/* function endTurn() {
+  hideControls()
+} */
+
+/* function endGame() {
+   hideControls()
+   console.log('The Match is Over.')
+ } */
 
 function hideContols() {
   controlsBox.innerHTML = "";
