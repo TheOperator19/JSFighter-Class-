@@ -212,6 +212,14 @@ function koCheck(target, amount) {
   }
 }
 
+// EndTurn code
+function endTurn() {
+  playerTurn = !playerTurn
+  if (kocheck(Player0, 0) || kocheck(Player1, 0)){
+    hideControls();
+  }
+}
+
 /*
 function amount() {
   if (single(target)) {
