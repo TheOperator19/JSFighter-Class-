@@ -5,22 +5,16 @@ const DEFAULT_DEF = 5;
 const DEFAULT_TEK = 5;
 
 //sets constants names
-const P0NAME = 'Crash'
-const P0CHARA = 'crashr'
-const P1NAME = 'Sam'
-const P1CHARA = 'saml'
+const P0NAME = 'Crash';
+const P0CHARA = 'crashr';
+const P1NAME = 'Sam';
+const P1CHARA = 'saml';
 
 let playerTurn = false;
 let logging = true;
 
 let Player0;
 let Player1;
-
-//varible for finding % of players HP used for the HealthBar
-let player0PercentHP;
-let player1PercentHP;
-let player0PercentSP;
-let player1PercentSP;
 
 // declared variables for the boxes
 let gameBox;
@@ -29,7 +23,7 @@ let graphicsBox;
 let barsBox;
 let controlsBox;
 let outputBox;
-
+let sp;
 class Fighter {
   constructor(name, charaName) {
     //'contructor' is in all JS classes
@@ -111,25 +105,26 @@ function startup() {
 
 
   //this shows the fighter images in the graphics box
-  graphicsBox.innerHTML = '<img id ="' + Player0.charaName + '" src="img/' + Player0.charaName + '_idle.png" alt="' + Player0.name + '" class="fighterIMG">'
-  graphicsBox.innerHTML += '<img id ="' + Player1.charaName + '" src="img/' + Player1.charaName + '_idle.png" alt="' + Player1.name + '" class="fighterIMG">'
+  graphicsBox.innerHTML = '<img id ="' + Player0.charaName + '" src="img/' + Player0.charaName + '_idle.png" alt="' + Player0.name + '" class="fighterIMG">';
+  graphicsBox.innerHTML += '<img id ="' + Player1.charaName + '" src="img/' + Player1.charaName + '_idle.png" alt="' + Player1.name + '" class="fighterIMG">';
 
 
-  console.log("My name is " + Player0.name + " and my ATK is " + Player0.atk)
-  console.log("My name is " + Player1.name + " and my ATK is " + Player1.atk)
+  console.log('My name is ' + Player0.name + ' and my ATK is ' + Player0.atk);
+  console.log('My name is ' + Player1.name + ' and my ATK is ' + Player1.atk);
 
-  showControls() //runs the showControls() function
-  updateBars() //runs the updateBars() function
+
+  showControls(); //runs the showControls() function
+  updateBars(); //runs the updateBars() function
 }
 
 function showControls() {
   //checks to see which players turn it is and show the apropriate controls
   if (playerTurn) {
     //show buttons for player1 and overwrites player0's controls
-    controlsBox.innerHTML = '<button type="button" name="attack" onclick="Player1.single(Player0)">Single Attack!</button>'
+    controlsBox.innerHTML = '<button type="button" name="attack" onclick="Player1.single(Player0)">Single Attack!</button>';
   } else {
     //show buttons for player0 and overwrites player1's controls
-    controlsBox.innerHTML = '<button type="button" name="attack" onclick="Player0.single(Player1)">Single Attack!</button>'
+    controlsBox.innerHTML = '<button type="button" name="attack" onclick="Player0.single(Player1)">Single Attack!</button>';
   }
 }
 //checks the target's HP is less than or equal to 0, Then retuns true or false.
@@ -175,20 +170,15 @@ function updateBars() {
   } else {
     player0PercentSP = player0PercentSP
   }
+  return '<div class="' + hpsp + 'Bar"><div style="width: ' + calculated + '%;" id="p0' + hpsp + 'fill" class="' + hpsp + 'fill">' + min + '</div></div>'
+}
 
-  //Makes sure Player1's SP is not greater than 100% or less than 0%
-  if (player1PercentSP <= 0) {
-    player1PercentSP = 0
-  } else if (player1PercentSP > 100) {
-    player1PercentSP = 100
-  } else {
-    player1PercentSP = player1PercentSP
-  }
-  barsBox.innerHTML = ''
-  barsBox.innerHTML += 'P0<div class="hpBar"><div style="height:' + player0PercentHP + '%; width: 100%;" id="p0HPfill" class="HPfill"></div></div>'
-  barsBox.innerHTML += '<div class="spBar"><div style="height:' + player0PercentSP + '%; width: 100%;" id="p0SPfill" class="SPfill"></div></div>'
-  barsBox.innerHTML += 'P1<div class="hpBar"><div style="height:' + player1PercentHP + '%; width: 100%;" id="p1HPfill" class="HPfill"></div></div>'
-  barsBox.innerHTML += '<div class="spBar"><div style="height:' + player1PercentSP + '%; width: 100%;" id="p1SPfill" class="SPfill"></div></div>'
+//This function makes the hp/sp bars and places them in the barsBox useing the updateBar
+function updateBars() {
+  barsBox.innerHTML = updateBar(Player0, 'HP', Player0.hp, START_HP)
+  barsBox.innerHTML += updateBar(Player0, 'SP', Player0.sp, START_SP)
+  barsBox.innerHTML += updateBar(Player1, 'HP', Player1.hp, START_HP)
+  barsBox.innerHTML += updateBar(Player1, 'SP', Player1.sp, START_SP)
 }
 
 /* function endTurn() {
@@ -231,6 +221,10 @@ function endTurn() {
   playerTurn = !playerTurn
   if (koCheck(Player0, 0) || koCheck(Player1, 0)){
     hideControls();
+    updateBars();
+  } else {
+    showControls()
+    updateBars();
   }
 }
 
